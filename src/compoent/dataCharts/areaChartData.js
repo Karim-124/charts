@@ -1,9 +1,7 @@
-// src/components/charts/areaChartConfig.js
-
-import { Chart, CategoryScale, LinearScale, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import { Chart, CategoryScale, LinearScale, LineElement, Title, Tooltip, Legend, PointElement } from 'chart.js';
 
 // Register the components
-Chart.register(CategoryScale, LinearScale, LineElement, Title, Tooltip, Legend);
+Chart.register(CategoryScale, LinearScale, LineElement, Title, Tooltip, Legend, PointElement);
 
 export const areaChartData = {
   labels: [
@@ -14,10 +12,12 @@ export const areaChartData = {
       label: 'Performance',
       data: [10, 20, 30, 40, 50, 60, 70, 80, 90], // Example data for each 3-week interval
       fill: true,
-      backgroundColor: 'rgba(75, 192, 192, 0.2)',
-      borderColor: 'rgba(75, 192, 192, 1)',
-      borderWidth: 1,
+      backgroundColor: 'rgba(75, 192, 192, 0.2)', // Fill color under the points
+      borderColor: 'rgba(75, 192, 192, 1)',       // Border color of the area
+      borderWidth: 0,  // No border line
       tension: 0.1,
+      pointRadius: 5,  // Size of the points
+      pointBackgroundColor: 'rgba(75, 192, 192, 1)', // Color of the points
     },
   ],
 };
