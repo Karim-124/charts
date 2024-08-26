@@ -1,21 +1,14 @@
 import React from 'react';
-import { Chart, LineElement, PointElement, LinearScale, TimeScale, Title, Tooltip, Legend } from 'chart.js';
-import 'chartjs-adapter-date-fns'; // Import the date adapter
-import { Line } from 'react-chartjs-2';
-import LineCharts from './compoent/charts/LineCharts';
-import { lineChartData, lineChartOptions } from './compoent/dataCharts/lineChartData';
-import BarCharts from './compoent/charts/BarCharts';
-import AreaCharts from './compoent/charts/AreaCharts';
-import DoughnutChart from './compoent/charts/DoughnutChart';
-import PieChart from './compoent/charts/PieChart';
 
-Chart.register(LineElement, PointElement, LinearScale, TimeScale, Title, Tooltip, Legend);
+
+import Dashboard from './compoent/Dashboard';
+
 
 function App() {
   return (
-    <div className="App w-1/2 mx-auto flex flex-col items-center justify-center min-h-screen">
-    <h1 className="text-center text-2xl font-bold mb-6">Performance Dashboard</h1>
-    <PieChart    />
+ 
+  <div className=''>
+    <Dashboard/>
   </div>
   
   );
