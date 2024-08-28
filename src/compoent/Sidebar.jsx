@@ -6,7 +6,7 @@ const Sidebar = () => {
 
   return (
     <div 
-      className={`flex flex-col h-screen p-3 bg-gray-800 text-white shadow-lg ${isOpen ? 'w-64' : 'w-16'} transition-all duration-300 overflow-y-auto`}
+      className={`flex flex-col  p-3 bg-gray-800 text-white shadow-lg ${isOpen ? 'w-64' : 'w-16'} transition-all duration-300 overflow-y-auto`}
     >
       <div className="flex items-center justify-between">
         <h1 className={`text-2xl font-bold ${!isOpen && 'hidden'}`}>Dashboard</h1>
