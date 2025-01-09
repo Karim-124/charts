@@ -15,7 +15,7 @@ const Dashboard = () => {
           <h1 className="text-4xl font-extrabold text-gray-900 mb-2">Dashboard</h1>
           <p className="text-lg text-gray-600">Your overview and performance metrics</p>
         </div>
-        <div className="grid grid-cols-1 gap-1 md:grid-cols-2  lg:grid-cols-6  ">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2  lg:grid-cols-6  ">
           <div className="bg-white p-6 shadow rounded-lg col-span-3">
             <h2 className="text-xl font-medium mb-4 text-gray-700">Area Chart</h2>
             <AreaChart />
