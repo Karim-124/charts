@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import darkLogo from '../assets/logoDark.png'
+import lightLogo from '../assets/logoLight.png'
 
 const StepsPage = () => {
     const { id, step } = useParams();
@@ -72,47 +74,44 @@ const StepsPage = () => {
     return (
         <div className={`${bgColor} min-h-screen p-6 transition-all duration-300`}>
             {/* Toggle Button */}
-            <button
-                onClick={() => setDarkMode(!darkMode)}
-                className="mb-6 px-4 py-2 rounded-lg font-medium shadow-md bg-green-600 hover:bg-green-500 text-white flex items-center justify-center"
-            >
-                {darkMode ? (
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M6.343 6.343L4.93 4.93m12.728 12.728l-1.414-1.414M6.343 17.657L4.93 19.07M12 7a5 5 0 100 10 5 5 0 000-10z"
-                        />
-                    </svg>
-                ) : (
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"
-                        />
-                    </svg>
-                )}
-            </button>
+           <div className='flex justify-between mb-2'>
+                          <div>
+                              <img className='w-52 ' src={`${darkMode ? darkLogo : lightLogo}`} loading='lazy' alt="" />
+                          </div>
+                          <button
+                              onClick={() => setDarkMode(!darkMode)}
+                              className="mb-2 px-4 py-2 rounded-lg font-medium shadow-md bg-green-600 hover:bg-green-500 text-white flex items-center justify-center"
+                              aria-label="Toggle Dark Mode"
+                          >
+                              {darkMode ? (
+                                  // Sun Icon for Light Mode
+                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth={2}
+                                          d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M6.343 6.343L4.93 4.93m12.728 12.728l-1.414-1.414M6.343 17.657L4.93 19.07M12 7a5 5 0 100 10 5 5 0 000-10z"
+                                      />
+                                  </svg>
+                              ) : (
+                                  // Moon Icon for Dark Mode
+                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth={2}
+                                          d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"
+                                      />
+                                  </svg>
+                              )}
+                          </button>
+                      </div>
+          
 
             {/* Header Section */}
             <div className={`flex justify-between items-center ${cardBg} p-4 rounded-lg shadow-md mb-8`}>
                 <h1 className="text-3xl font-bold text-green-500">
-                    Status <span className="text-green-300">{id}</span>
+                    Status <span className="text-orange-500">{id}</span>
                 </h1>
                 <span className={`${darkMode ? "text-white" : "text-gray-700"} text-lg`}>
                     {new Date().toLocaleString()}
@@ -122,7 +121,7 @@ const StepsPage = () => {
             {/* Steps Section */}
             <div className={`${cardBg} p-6 rounded-lg shadow-md`}>
                 <h2 className="text-2xl font-bold text-green-300 mb-6">
-                    Steps in <span className="text-green-500">{step}</span>
+                    Steps in <span className="text-orange-500">{step}</span>
                 </h2>
                 <div className="grid grid-cols-6 gap-4">
                     {steps.map((stepName, index) => (
