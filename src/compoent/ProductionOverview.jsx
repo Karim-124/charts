@@ -32,6 +32,18 @@ const ProductionOverview = () => {
     const tableHeaderBg = darkMode ? ' text-white' : ' text-black';
     const tableRowBg = darkMode ? '' : '';
     const hoverColor = darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-900';
+    const calculateTimeDetails = (percent) => {
+        const totalDuration = 8; // Total duration assumed to be 8 hours
+        const duration = (percent / 100) * totalDuration; // Duration based on percentage
+        const startTime = new Date(2025, 0, 11, 8); // Fixed start time: 8:00 AM
+        const endTime = new Date(startTime.getTime() + duration * 60 * 60 * 1000); // Calculate end time
+
+        return {
+            startTime: startTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+            endTime: endTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+            duration: `${duration.toFixed(1)} hrs`,
+        };
+    };
 
     return (
         <div className={`${bgColor} min-h-screen p-6 transition-all duration-300 `}>
@@ -104,51 +116,126 @@ const ProductionOverview = () => {
                             >
                                 <td className="px-4 py-4 font-bold">{row.id}</td>
                                 {Object.entries(row)
-                                    .filter(([key]) => key !== 'id')
-                                    .map(([key, value]) => (
-                                        <td
-                                            key={key}
-                                            className="px-4 py-4 cursor-pointer"
-                                            onClick={() => handleCellClick(row.id, key)}
-                                        >
-                                            <div
-                                                className={`p-4 rounded-lg shadow-xl ${hoverColor} ${darkMode ? 'bg-gray-700' : 'bg-green-300'
-                                                    }`}
+                                    .filter(([key]) => key !== "id")
+                                    .map(([key, value]) => {
+                                        const { startTime, endTime, duration } = calculateTimeDetails(value);
+                                        return (
+                                            <td
+                                                key={key}
+                                                className="px-4 py-6 cursor-pointer align-top"
+                                                onClick={() => handleCellClick(row.id, key)}
                                             >
                                                 <div
-                                                    className={`text-sm font-medium mb-2 ${darkMode ? 'text-green-300' : 'text-green-800'
+                                                    className={`p-4 rounded-xl shadow-md transition-transform transform hover:scale-105 ${darkMode ? "bg-gray-800" : "bg-green-200"
                                                         }`}
                                                 >
-                                                    {key}
-                                                </div>
-                                                <div className="flex space-x-3">
-                                                    <Progress
-                                                        percent={value || 0}
-                                                        status={
-                                                            value === 100
-                                                                ? 'success'
-                                                                : value > 0
-                                                                    ? 'active'
-                                                                    : 'default'
-                                                        }
-                                                        theme={{
-                                                            success: { color: darkMode ? '#4caf50' : '#66bb6a' },
-                                                            active: {
-                                                                symbol: ' ',
-                                                                trailColor: '#e5e5e5', color: darkMode ? '#FE8D0D' : '#FE8D0D'
-                                                            },
-                                                            default: { symbol: " ", color: darkMode ? '#a5d6a7' : '#81c784' },
-                                                        }}
-                                                        style={{
-                                                            width: "100"
-                                                        }}
-                                                    />
+                                                    {/* Step Name */}
+                                                    <h3
+                                                        className={`text-sm font-semibold mb-2 ${darkMode ? "text-green-300" : "text-green-800"
+                                                            }`}
+                                                    >
+                                                        {key.replace(/_/g, " ")}
+                                                    </h3>
 
-                                                    {value == 100 ? <></> : <p className={`${darkMode ? "text-orange-400" : "text-orange-900"}`} >{value || 0}%</p>}
+                                                    {/* Progress Bar */}
+                                                    <div className="flex space-x-3">
+                                                        <Progress
+                                                            percent={value || 0}
+                                                            status={
+                                                                value === 100
+                                                                    ? 'success'
+                                                                    : value > 0
+                                                                        ? 'active'
+                                                                        : 'default'
+                                                            }
+                                                            theme={{
+                                                                success: { color: darkMode ? '#4caf50' : '#66bb6a' },
+                                                                active: {
+                                                                    symbol: ' ',
+                                                                    trailColor: '#e5e5e5', color: darkMode ? '#FE8D0D' : '#FE8D0D'
+                                                                },
+                                                                default: { symbol: " ", color: darkMode ? '#a5d6a7' : '#81c784' },
+                                                            }}
+                                                            style={{
+                                                                width: "100"
+                                                            }}
+                                                        />
+
+                                                        {value == 100 ? <></> : <p className={`${darkMode ? "text-orange-400" : "text-orange-900"}`} >{value || 0}%</p>}
+                                                    </div>
+
+                                                    {/* Time Details */}
+                                                    <div
+                                                        className={`text-xs space-y-2 font-medium leading-relaxed ${darkMode ? "text-gray-300" : "text-gray-800"
+                                                            }`}
+                                                    >
+                                                        <p className="flex items-center space-x-2">
+                                                            <span className="font-semibold text-sm">
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    className="h-4 w-4 inline-block"
+                                                                    fill="none"
+                                                                    viewBox="0 0 24 24"
+                                                                    stroke="currentColor"
+                                                                >
+                                                                    <path
+                                                                        strokeLinecap="round"
+                                                                        strokeLinejoin="round"
+                                                                        strokeWidth={2}
+                                                                        d="M8 6v6h4m4 0h-2m-2-4v4h-4m4 4h4m4 0h-4m-4-4H8m0 0H4m16 0v4m-4 0v4m-4-8V6"
+                                                                    />
+                                                                </svg>
+                                                            </span>
+                                                            <span className="font-bold">Start:</span>
+                                                            <span className="italic">{startTime}</span>
+                                                        </p>
+                                                        <p className="flex items-center space-x-2">
+                                                            <span className="font-semibold text-sm">
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    className="h-4 w-4 inline-block"
+                                                                    fill="none"
+                                                                    viewBox="0 0 24 24"
+                                                                    stroke="currentColor"
+                                                                >
+                                                                    <path
+                                                                        strokeLinecap="round"
+                                                                        strokeLinejoin="round"
+                                                                        strokeWidth={2}
+                                                                        d="M12 8c3.33 0 6 2.67 6 6s-2.67 6-6 6-6-2.67-6-6 2.67-6 6-6zM12 2v4M12 20v2"
+                                                                    />
+                                                                </svg>
+                                                            </span>
+                                                            <span className="font-bold">End:</span>
+                                                            <span className="italic">{endTime}</span>
+                                                        </p>
+                                                        <p className="flex items-center space-x-2">
+                                                            <span className="font-semibold text-sm">
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    className="h-4 w-4 inline-block"
+                                                                    fill="none"
+                                                                    viewBox="0 0 24 24"
+                                                                    stroke="currentColor"
+                                                                >
+                                                                    <path
+                                                                        strokeLinecap="round"
+                                                                        strokeLinejoin="round"
+                                                                        strokeWidth={2}
+                                                                        d="M10 20H4v-6m16 6h-6v-4"
+                                                                    />
+                                                                </svg>
+                                                            </span>
+                                                            <span className="font-bold">Duration:</span>
+                                                            <span className="italic">{duration}</span>
+                                                        </p>
+                                                    </div>
+
                                                 </div>
-                                            </div>
-                                        </td>
-                                    ))}
+                                            </td>
+                                        );
+                                    })}
+
                             </tr>
                         ))}
                     </tbody>
