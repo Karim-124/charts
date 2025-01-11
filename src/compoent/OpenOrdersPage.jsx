@@ -89,29 +89,25 @@ function StepSwitcher({ step, index, onStepChange }) {
 function OrderCard({ id, process, steps, onStepsUpdate, darkMode }) {
   return (
     <div
-      className={`p-6 rounded-xl shadow-lg transition-transform transform hover:scale-105 ${darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-900"
-        } border ${darkMode ? "border-gray-700" : "border-green-300"
-        }`}
+      className={`p-6 rounded-2xl shadow-lg transition-transform transform hover:scale-105 ${darkMode ? "bg-gradient-to-br from-gray-800 to-gray-900 text-white" : "bg-gradient-to-br from-white to-gray-100 text-gray-900"
+        } border ${darkMode ? "border-gray-700" : "border-gray-200"} hover:shadow-xl`}
     >
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-
-        <h3 className="text-2xl font-bold">{id}</h3>
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-xl font-extrabold tracking-tight">{id}</h3>
         <p
-          className={`text-sm font-medium uppercase mt-1 ${darkMode ? "text-gray-400" : "text-green-600"
+          className={`text-sm font-semibold uppercase ${darkMode ? "text-gray-400" : "text-green-600"
             }`}
         >
           {process}
         </p>
-
-
       </div>
 
       {/* Progress Bar */}
       <div className="relative flex items-center justify-between mt-6">
         {/* Background Progress Line */}
         <div
-          className={`absolute top-1/2 left-0 right-0 h-1 -translate-y-1/2 rounded-full ${darkMode ? "bg-gray-600" : "bg-green-200"
+          className={`absolute top-1/2 left-0 right-0 h-1 -translate-y-1/2 rounded-full ${darkMode ? "bg-gray-700" : "bg-gray-300"
             }`}
         ></div>
 
@@ -125,9 +121,18 @@ function OrderCard({ id, process, steps, onStepsUpdate, darkMode }) {
           />
         ))}
       </div>
+
+      {/* Footer */}
+      <div
+        className={`mt-6 flex justify-center text-sm ${darkMode ? "text-gray-400" : "text-gray-600"
+          }`}
+      >
+        <p>Click a step to update its status</p>
+      </div>
     </div>
   );
 }
+
 
 
 
